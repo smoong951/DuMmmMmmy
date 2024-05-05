@@ -9,6 +9,7 @@ import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigBuilder;
 import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigSpec;
 import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigType;
 import net.mehvahdjukaar.moonlight.api.util.Utils;
+import net.mehvahdjukaar.moonlight.api.util.math.ColorUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -98,7 +99,7 @@ public class ClientConfigs {
 
         DAMAGE_TO_COLORS = builder.comment("Add here custom colors (in hex format) to associate with your damage types. This is a map from damage source ID to a color where you can add new entries for each")
                 .defineObject("damage_type_colors", () -> map,
-                        Codec.unboundedMap(IdOrTagPredicate.CODEC, ColorUtil.CODEC));
+                        Codec.unboundedMap(IdOrTagPredicate.CODEC, ColorUtils.CODEC));
 
 
         builder.pop();

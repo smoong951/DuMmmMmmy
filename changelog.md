@@ -1,1 +1,2 @@
-added a config that allows "training" when hitting a dummy, making it spawn experience based off the damage dealt
+no changes
+Just recompiled because mixin refmap decided it was its day off in the previous version...
