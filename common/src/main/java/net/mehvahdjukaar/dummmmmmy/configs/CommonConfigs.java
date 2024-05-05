@@ -26,6 +26,7 @@ public class CommonConfigs {
     public static final Supplier<Integer> MAX_COMBAT_INTERVAL;
     public static final Supplier<Mode> DAMAGE_NUMBERS_MODE;
     public static final Supplier<Mode> HEALING_NUMBERS_MODE;
+    public static final Supplier<Double> DROP_XP;
 
     public enum Mode {
         ALL_ENTITIES, ALL_PLAYERS, LOCAL_PLAYER, NONE;
@@ -58,6 +59,9 @@ public class CommonConfigs {
                 .define("maximum_out_of_combat_interval", 6 * 20, 20, 1000);
         DECOY = builder.comment("Makes monsters target a dummy that is wearing a player head")
                 .define("dummy_decoy", false);
+
+        DROP_XP = builder.comment("Makes dummy drop xp when hit. Training yay! Depends on damage done")
+                        .define("xp_per_damage_on_hit", 0, 0d, 100);
         builder.pop();
 
         builder.push("mobs_damage_numbers");

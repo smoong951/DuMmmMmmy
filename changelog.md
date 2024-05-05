@@ -1,1 +1,1 @@
-fixed some damange number colors not working
+added a config that allows "training" when hitting a dummy, making it spawn experience based off the damage dealt

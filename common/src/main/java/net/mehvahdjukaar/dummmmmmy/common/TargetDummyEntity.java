@@ -421,12 +421,21 @@ public class TargetDummyEntity extends Mob {
                 } else actualSource = currentDamageSource;
 
                 if (actualSource != null) {
-
-                    showDamageAndAnimationsToClients(damage, actualSource);
-                    updateTargetBlock(damage);
+                    onActuallyDamagedOrTrueDamageDetected(damage, actualSource);
                 }
 
                 this.lastTickActuallyDamaged = this.tickCount;
+            }
+        }
+    }
+
+    private void onActuallyDamagedOrTrueDamageDetected(float damage, @Nullable DamageSource actualSource) {
+        showDamageAndAnimationsToClients(damage, actualSource);
+        updateTargetBlock(damage);
+        if (level() instanceof ServerLevel sl) {
+            float xp = CommonConfigs.DROP_XP.get().floatValue() * damage;
+            if (xp > 0) {
+                ExperienceOrb.award(sl, this.position().add(0, 0.5, 0), Mth.floor(xp));
             }
         }
     }
@@ -513,7 +522,7 @@ public class TargetDummyEntity extends Mob {
             float trueDamage = this.getMaxHealth() - this.getHealth();
             if (trueDamage > 0) {
                 this.heal(trueDamage);
-                this.showDamageAndAnimationsToClients(trueDamage, null);
+                onActuallyDamagedOrTrueDamageDetected(trueDamage, null);
             }
         }
 

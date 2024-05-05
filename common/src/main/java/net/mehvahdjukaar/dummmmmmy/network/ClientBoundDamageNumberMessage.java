@@ -40,7 +40,11 @@ public class ClientBoundDamageNumberMessage implements Message {
     public static ResourceLocation encodeDamage(DamageSource source) {
         if (source == null) return Dummmmmmy.TRUE_DAMAGE;
         //if (critical) return Dummmmmmy.CRITICAL_DAMAGE;
-        return Utils.hackyGetRegistry(Registries.DAMAGE_TYPE).getKey(source.type());
+        var damageType = source.type();
+        if(damageType == null) throw new AssertionError("Damage source has null type. How?: " + source);
+        var id = Utils.hackyGetRegistry(Registries.DAMAGE_TYPE).getKey(damageType);
+        if (id == null) throw new AssertionError("Damage type not found in registry. This is a but from that mod that added it!: " + damageType);
+        return id;
     }
 
     protected ClientBoundDamageNumberMessage(int id, float damage, ResourceLocation damageType, boolean isCrit, float critMult) {
